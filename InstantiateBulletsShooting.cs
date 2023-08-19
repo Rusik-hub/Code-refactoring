@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class InstantiateBulletsShooting : MonoBehaviour
 {
-    [SerializeField] private GameObject _prefab;
+    [SerializeField] private Bullet _prefab;
     [SerializeField] private float _speed;
     [SerializeField] private float _timeWaitShooting;
 
@@ -15,17 +15,18 @@ public class InstantiateBulletsShooting : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(_shootingWorker());
+        StartCoroutine(Shooting());
     }
 
-    private IEnumerator _shootingWorker()
+    private IEnumerator Shooting()
     {
         bool isWork = true;
 
         while (isWork)
         {
             var vector3direction = (ObjectToShoot.position - transform.position).normalized;
-            var newBullet = Instantiate(_prefab, transform.position + vector3direction, Quaternion.identity);
+            var newBullet = Instantiate(_prefab, transform.position +
+                vector3direction, Quaternion.identity);
 
             newBullet.GetComponent<Rigidbody>().transform.up = vector3direction;
             newBullet.GetComponent<Rigidbody>().velocity = vector3direction * _speed;

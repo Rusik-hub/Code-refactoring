@@ -23,7 +23,8 @@ public class GoPlaces : MonoBehaviour
     private void Update()
     {
         var currentTarget = _places[_placeIndex];
-        transform.position = Vector3.MoveTowards(transform.position, currentTarget.position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position,
+            currentTarget.position, _speed * Time.deltaTime);
 
         if (transform.position == currentTarget.position)
             NextPlaceTakerLogic();
