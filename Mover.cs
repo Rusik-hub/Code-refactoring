@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 
-public class GoPlaces : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     private Transform[] _places;
     private Transform _spawner;
     private int _placesCount;
     private int _placeIndex;
     private float _speed;
-
 
     private void Start()
     {
@@ -27,10 +26,10 @@ public class GoPlaces : MonoBehaviour
             currentTarget.position, _speed * Time.deltaTime);
 
         if (transform.position == currentTarget.position)
-            NextPlaceTakerLogic();
+            SetNextTarget();
     }
 
-    private Vector3 NextPlaceTakerLogic()
+    private Vector3 SetNextTarget()
     {
         _placeIndex++;
 
