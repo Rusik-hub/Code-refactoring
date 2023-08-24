@@ -12,8 +12,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] private float _timeWaitShooting;
     [SerializeField] private Transform _objectToShoot;
 
-    private Rigidbody _rigidbody;
-    private Coroutine _runningCoroutine;
+    private Coroutine _waitShootingCoroutine;
 
     private void Start()
     {
@@ -23,18 +22,17 @@ public class Shooter : MonoBehaviour
     private IEnumerator Shooting()
     {
         bool isWork = true;
-        _runningCoroutine = new WaitForSeconds(_timeWaitShooting);
+        _waitShootingCoroutine = new WaitForSeconds(_timeWaitShooting);
 
-        while (isWork)
+        while (gameObject.enabled)
         {
             var vectorDirection = (ObjectToShoot.position - transform.position).normalized;
             var newBullet = Instantiate(_prefab, transform.position + vectorDirection, Quaternion.identity);
-            _rigidbody = newBullet.GetComponent<Rigidbody>();
 
-            _rigidbody.transform.up = vectorDirection;
-            _rigidbody.velocity = vectorDirection * _speed;
+            newBullet.transform.up = vectorDirection;
+            newBullet.velocity = vectorDirection * _speed;
 
-            yield return _runningCoroutine;
+            yield return _waitShootingCoroutine;
         }
     }
 }
